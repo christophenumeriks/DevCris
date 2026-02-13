@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suivi Interventions - Labo NumeriK's</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Suivi des interventions</h1>
+      <p>Labo NumeriK's — saisie rapide mobile + statistiques</p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>Saisie d'une intervention (journée technicien)</h2>
+        <form id="entry-form" class="grid-form">
+          <label>
+            Date
+            <input type="date" id="date" required />
+          </label>
+
+          <label>
+            Technicien
+            <div class="inline-row">
+              <select id="technician" required></select>
+              <button class="btn secondary" type="button" id="manage-techs">Gérer</button>
+            </div>
+          </label>
+
+          <label>
+            Interventions collectées (entrées)
+            <input type="number" id="collected" min="0" value="0" required />
+          </label>
+
+          <label>
+            Interventions traitées (sorties)
+            <input type="number" id="processed" min="0" value="0" required />
+          </label>
+
+          <label>
+            Heure de début
+            <input type="time" id="startTime" required />
+          </label>
+
+          <label>
+            Heure de fin
+            <input type="time" id="endTime" required />
+          </label>
+
+          <div class="actions">
+            <button class="btn primary" type="submit">➕ Enregistrer</button>
+            <button class="btn ghost" type="button" id="reset-form">Vider</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Filtre & statistiques</h2>
+        <div class="toolbar">
+          <label>
+            Mois
+            <input type="month" id="monthFilter" />
+          </label>
+          <label>
+            Technicien
+            <select id="statsTechnician">
+              <option value="all">Service complet</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="stats" class="stats-grid"></div>
+      </section>
+
+      <section class="card">
+        <h2>Historique du mois</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Technicien</th>
+                <th>Entrées</th>
+                <th>Sorties</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Heures</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="entriesBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Sauvegarde / import</h2>
+        <div class="actions wrap">
+          <button class="btn secondary" id="export-btn" type="button">📦 Exporter JSON</button>
+          <label class="btn ghost upload-label" for="import-file">📥 Importer JSON</label>
+          <input id="import-file" type="file" accept="application/json" />
+        </div>
+      </section>
+    </main>
+
+    <dialog id="tech-dialog">
+      <form method="dialog" class="dialog-content">
+        <h3>Techniciens</h3>
+        <ul id="tech-list"></ul>
+        <div class="inline-row">
+          <input id="new-tech" type="text" placeholder="Nouveau technicien" />
+          <button class="btn primary" type="button" id="add-tech">Ajouter</button>
+        </div>
+        <button class="btn ghost" value="cancel">Fermer</button>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
